@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         
         // Moving X
         if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < 0.1f)
-            _velocity.x = MoveSpeed * Input.GetAxis("Vertical");
+            _velocity.x = MoveSpeed * Input.GetAxis("Vertical") * -1;
         
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && !_hasJumped)
