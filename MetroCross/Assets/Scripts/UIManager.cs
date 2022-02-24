@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         Game.Instance.PlayerName = pseudo;
         
         String ghost = Ghost.text.Replace(' ', '_');
-        if (String.IsNullOrEmpty(pseudo) || Game.Instance.Ghost.LoadFile(pseudo) == null) return;
+        if (String.IsNullOrEmpty(ghost) || Game.Instance.Ghost.LoadFile(ghost) == null) return;
         
         Game.Instance.Ghost.GhostName = ghost;
         Game.Instance.Ghost.PlayGhost = true;
