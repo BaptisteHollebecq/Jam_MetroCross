@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 53481737}
+    - target: {fileID: 1980744103721970724, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: PlayerName
+      value: testt
+      objectReference: {fileID: 0}
     - target: {fileID: 1980744103721970726, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
       propertyPath: m_Name
       value: Scripts
@@ -180,6 +184,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980744103721970727, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980744104385392710, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 151.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980744104928183412, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: Skate
+      value: 
+      objectReference: {fileID: 632803688}
+    - target: {fileID: 1980744104928183412, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: PlayGhost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980744104928183415, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6289080439744163339, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 80e4bc5da72ec3341bf723fe7e452dd6, type: 2}
+    - target: {fileID: 7613749701616451743, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -375,6 +403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c5c6863b1841e4e8633ed2bda3833c, type: 3}
+--- !u!1 &632803688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7613749701616451743, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
+  m_PrefabInstance: {fileID: 6953312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,8 +731,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2112430923420064578, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: Skate
+      value: 
+      objectReference: {fileID: 1924974424}
+    - target: {fileID: 2112430923420064578, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112430923420064578, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: JumpForce
+      value: 2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112430923420064578, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: MoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112430923420064578, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: SlowGround
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112430924408732727, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773032305126758763, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+--- !u!1 &1924974424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6773032305126758763, guid: b14071d36914f0f4395c981b3f3319b1, type: 3}
+  m_PrefabInstance: {fileID: 1607665806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1980124526
 GameObject:
   m_ObjectHideFlags: 3
