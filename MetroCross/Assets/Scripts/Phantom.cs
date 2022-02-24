@@ -1,24 +1,48 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Positions
+[Serializable]
+public struct Frame
 {
     public Vector3 Position;
     //public _ Anim; 
 }
 public class Phantom : MonoBehaviour
 {
-    private Positions[] Frames;
-    // Start is called before the first frame update
+    private List<Frame> Frames;
+
+    public bool Record;
+    public bool Play;
+
     void Start()
+    {
+        Frames = new List<Frame>();
+    }
+
+    public void SaveFile(string name)
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void LoadFile(string name)
     {
+        
+    }
+    
+    void FixedUpdate()
+    {
+        if (Record)
+        {
+            Frame frame = new Frame();
+            frame.Position = Game.Instance.Player.transform.position;
+        }
+
+        if (Play)
+        {
+            
+        }
         
     }
 }
