@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     [Header("Components")]
     public PlayerController Player;
     public Phantom Ghost;
+    public Transform StartPosition;
 
     [Header("Settings")] 
     public string PlayerName;
@@ -18,11 +19,16 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Player.gameObject.SetActive(false);
     }
 
-    private void Start()
+    public void StartGame()
     {
+        Player.gameObject.SetActive(true);
+        Player.transform.position = StartPosition.position;
         Playing = true;
+
+        Ghost.StartGhost();
     }
 
     public void EndLevel()

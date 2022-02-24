@@ -32,16 +32,6 @@ public class Phantom : MonoBehaviour
     {
         _frames = new List<Frame>();
         _anim = Ghost.GetComponent<Animator>();
-
-        if (PlayGhost)
-        {
-            Ghost.SetActive(true);
-            _framesGhost = LoadFile(GhostName).Frames;
-        }
-        else
-        {
-            Ghost.SetActive(false);
-        }
     }
 
     public void SaveFile(string name)
@@ -110,5 +100,21 @@ public class Phantom : MonoBehaviour
     {
         _anim.SetBool("OnSkate", false);
         Skate.SetActive(false);
+    }
+
+    public void StartGhost()
+    {
+        _timeRecord = 0;
+        
+        
+        if (PlayGhost)
+        {
+            Ghost.SetActive(true);
+            _framesGhost = LoadFile(GhostName).Frames;
+        }
+        else
+        {
+            Ghost.SetActive(false);
+        }
     }
 }
