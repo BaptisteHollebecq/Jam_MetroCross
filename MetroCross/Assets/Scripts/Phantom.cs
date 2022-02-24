@@ -8,26 +8,35 @@ using UnityEngine;
 public struct Frame
 {
     public Vector3 Position;
-    //public _ Anim; 
+    public bool OnSkate;
+    public bool OnHitWall;
 }
 public class Phantom : MonoBehaviour
 {
-    private List<Frame> Frames;
-    private List<Frame> FramesGhost;
-    private float TimeRecord;
+    private List<Frame> _frames;
+    private List<Frame> _framesGhost;
+    private float _timeRecord;
+
+    private Animator _anim;
+    private bool _onSkate;
     
+    [Header("Ghost replay")]
     public bool PlayGhost;
     public string GhostName;
+    
+    [Header("Components")]
     public GameObject Ghost;
+    public GameObject Skate;
 
     void Awake()
     {
-        Frames = new List<Frame>();
+        _frames = new List<Frame>();
+        _anim = Ghost.GetComponent<Animator>();
 
         if (PlayGhost)
         {
             Ghost.SetActive(true);
-            LoadFile(GhostName);
+            _framesGhost = LoadFile(GhostName).Frames;
         }
         else
         {
@@ -40,40 +49,65 @@ public class Phantom : MonoBehaviour
 
         PhantomData asset = ScriptableObject.CreateInstance<PhantomData>();
 
-        asset.TimeRecord = TimeRecord;
-        asset.Frames = Frames;
+        asset.TimeRecord = _timeRecord;
+        asset.Frames = _frames;
 
         AssetDatabase.CreateAsset(asset, "Assets/Ghosts/"+name+".asset");
         AssetDatabase.SaveAssets();
     }
     
-    public void LoadFile(string name)
+    public PhantomData LoadFile(string name)
     {
         PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>("Assets/Ghosts/" + name + ".asset");
-        FramesGhost = phantom.Frames;
+        return phantom;
     }
     
     void FixedUpdate()
     {
         if (!Game.Instance.Playing) return;
-        
 
+        WriteFrame();
+
+        if (PlayGhost) ReadFrame();
+            
+        _timeRecord += Time.deltaTime;
+
+    }
+
+    public void ReadFrame()
+    {
+        if (_framesGhost.Count > 0)
+        {
+            Frame frameGhost = _framesGhost[0];
+            _framesGhost.RemoveAt(0);
+                
+            Ghost.transform.position = frameGhost.Position;
+                
+            if (frameGhost.OnSkate) GetSkate();
+            else GetOffSkate();
+                
+            if (frameGhost.OnHitWall) _anim.SetFloat("Blend",1);
+            else _anim.SetFloat("Blend",0);
+        }
+    }
+    public void WriteFrame()
+    {
         Frame frame = new Frame();
         frame.Position = Game.Instance.Player.transform.position;
-        Frames.Add(frame);
-            
-        TimeRecord += Time.deltaTime;
-        
+        frame.OnHitWall = Game.Instance.Player.OnHitWall;
+        frame.OnSkate = Game.Instance.Player.OnSkate;
+        _frames.Add(frame);
+    }
+    
+    private void GetSkate()
+    {
+        _anim.SetBool("OnSkate", true);
+        Skate.SetActive(true);
+    }
 
-        if (PlayGhost)
-        {
-            if (FramesGhost.Count > 0)
-            {
-                Frame frameGhost = FramesGhost[0];
-                FramesGhost.RemoveAt(0);
-                Ghost.transform.position = frameGhost.Position;
-            }
-        }
-        
+    private void GetOffSkate()
+    {
+        _anim.SetBool("OnSkate", false);
+        Skate.SetActive(false);
     }
 }

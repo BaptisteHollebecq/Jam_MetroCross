@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private Animator _anim;
     private Vector3 _velocity;
     private bool _hasJumped;
-    private bool _hitWall;
     private bool _slowed;
 
     public float RunSpeed;
@@ -18,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public int SlowGround;
     public float TimerWall;
 
+    public bool OnHitWall;
     public bool OnSkate = false;
     public GameObject Skate;
 
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Wall
-        if (_hitWall)
+        if (OnHitWall)
         {
             _velocity.z /= 3;
             
@@ -71,12 +71,16 @@ public class PlayerController : MonoBehaviour
     
     public IEnumerator HitWall()
     {
+        Debug.Log("HIIIIIT");
+        
+        
         if (OnSkate)
             GetOffSkate();
+        
         _anim.SetFloat("Blend",1);
-        _hitWall = true;
+        OnHitWall = true;
         yield return new WaitForSeconds(TimerWall);
-        _hitWall = false;
+        OnHitWall = false;
         _anim.SetFloat("Blend",0);
     }
 
