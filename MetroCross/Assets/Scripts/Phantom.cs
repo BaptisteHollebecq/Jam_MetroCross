@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -12,46 +13,66 @@ public struct Frame
 public class Phantom : MonoBehaviour
 {
     private List<Frame> Frames;
-    public float TimeRecord;
-
-    public bool Record;
-    public bool Play;
-
+    private List<Frame> FramesGhost;
+    private float TimeRecord;
+    
+    public bool PlayGhost;
+    public string GhostName;
     public GameObject Ghost;
 
-    void Start()
+    void Awake()
     {
         Frames = new List<Frame>();
+
+        if (PlayGhost)
+        {
+            Ghost.SetActive(true);
+            LoadFile(GhostName);
+        }
+        else
+        {
+            Ghost.SetActive(false);
+        }
     }
 
     public void SaveFile(string name)
     {
-        
+
+        PhantomData asset = ScriptableObject.CreateInstance<PhantomData>();
+
+        asset.TimeRecord = TimeRecord;
+        asset.Frames = Frames;
+
+        AssetDatabase.CreateAsset(asset, "Assets/Ghosts/"+name+".asset");
+        AssetDatabase.SaveAssets();
     }
     
     public void LoadFile(string name)
     {
-        
+        PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>("Assets/Ghosts/" + name + ".asset");
+        FramesGhost = phantom.Frames;
     }
     
     void FixedUpdate()
     {
         if (!Game.Instance.Playing) return;
         
-        if (Record)
-        {
-            Frame frame = new Frame();
-            frame.Position = Game.Instance.Player.transform.position;
-            Frames.Add(frame);
-            
-            TimeRecord += Time.deltaTime;
-        }
 
-        if (Play)
+        Frame frame = new Frame();
+        frame.Position = Game.Instance.Player.transform.position;
+        Frames.Add(frame);
+            
+        TimeRecord += Time.deltaTime;
+        
+
+        if (PlayGhost)
         {
-            Ghost.SetActive(true);
-            Frame frame = Frames[0];
-            Frames.RemoveAt(0);
+            if (FramesGhost.Count > 0)
+            {
+                Frame frameGhost = FramesGhost[0];
+                FramesGhost.RemoveAt(0);
+                Ghost.transform.position = frameGhost.Position;
+            }
         }
         
     }

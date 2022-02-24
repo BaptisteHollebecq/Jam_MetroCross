@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    [Header("Components")]
     public PlayerController Player;
-    public bool Playing;
+    public Phantom Ghost;
 
+    [Header("Settings")] 
+    public string PlayerName;
+    
+    [HideInInspector] public bool Playing;
     public static Game Instance;
 
     private void Awake()
@@ -20,5 +25,6 @@ public class Game : MonoBehaviour
     {
         Playing = false;
         
+        Ghost.SaveFile(PlayerName);
     }
 }
