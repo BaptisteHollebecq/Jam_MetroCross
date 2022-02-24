@@ -8738,10 +8738,6 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 819601469}
-    - target: {fileID: 1980744103721970724, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
-      propertyPath: PlayerName
-      value: MaRun
-      objectReference: {fileID: 0}
     - target: {fileID: 1980744103721970726, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
       propertyPath: m_Name
       value: Scripts
@@ -8789,14 +8785,6 @@ PrefabInstance:
     - target: {fileID: 1980744103721970727, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980744104928183412, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
-      propertyPath: GhostName
-      value: TEST
-      objectReference: {fileID: 0}
-    - target: {fileID: 1980744104928183412, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}
-      propertyPath: PlayGhost
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2caff2d788948e14aaa778562a086ef4, type: 3}

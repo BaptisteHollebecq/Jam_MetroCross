@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Ghost: {fileID: 1980744104928183412}
+  PlayerName: MaRun
   Playing: 0
 --- !u!1 &1980744104385392705
 GameObject:
@@ -200,9 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff440f7d9cc7fcd46a6f4344f24e173d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeRecord: 0
-  Record: 1
-  Play: 1
+  PlayGhost: 1
+  GhostName: TEST
   Ghost: {fileID: 787198849650486987}
 --- !u!1001 &1980744104137361630
 PrefabInstance:
