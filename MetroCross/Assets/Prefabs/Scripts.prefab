@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayGhost: 1
-  GhostName: TEST
+  GhostName: MyRun
   Ghost: {fileID: 787198849650486987}
 --- !u!1001 &1980744104137361630
 PrefabInstance:
