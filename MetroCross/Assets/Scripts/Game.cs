@@ -18,6 +18,10 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
         Playing = true;
     }
 

@@ -59,9 +59,6 @@ public class PlayerController : MonoBehaviour
             _velocity.z /= 3;
             
         }
-
-        if (OnSkate)
-            _velocity.y = 0;
     }
     
     private void FixedUpdate()
@@ -69,6 +66,12 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = _velocity;
     }
     
+    public void GetRamped()
+    {
+        _rb.AddForce(Vector3.up * JumpForce*2, ForceMode.Impulse);
+        _hasJumped = true;
+    }
+
     public IEnumerator HitWall()
     {
         Debug.Log("HIIIIIT");

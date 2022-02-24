@@ -71,6 +71,7 @@ public class Phantom : MonoBehaviour
         if (PlayGhost) ReadFrame();
             
         _timeRecord += Time.deltaTime;
+        UIManager.Instance.UpdateTimer(_timeRecord);
 
     }
 

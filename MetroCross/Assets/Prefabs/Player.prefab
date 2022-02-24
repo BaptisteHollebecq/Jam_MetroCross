@@ -316,14 +316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 203df14327157ed4dbd18029cd6c74ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunSpeed: 3
-  MoveSpeed: 3
-  JumpForce: 2.75
-  SlowGround: 6
+  RunSpeed: 4
+  MoveSpeed: 2
+  JumpForce: 3
+  SlowGround: 0
   TimerWall: 1.5
-  OnHitWall: 0
   OnSkate: 0
-  Skate: {fileID: 6773032305126758763}
+  Skate: {fileID: 0}
 --- !u!1 &1321204126493443406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,15 +2386,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 24cdeda593f9f8544a537120dfa23e22, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24cdeda593f9f8544a537120dfa23e22, type: 3}
---- !u!1 &6773032305126758763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 24cdeda593f9f8544a537120dfa23e22, type: 3}
-  m_PrefabInstance: {fileID: 5854623642140173370}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6248027960258003921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 24cdeda593f9f8544a537120dfa23e22, type: 3}
