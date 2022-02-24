@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rb;
+    private Animator _anim;
     private Vector3 _velocity;
     private bool _hasJumped;
     private bool _hitWall;
@@ -19,6 +20,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _anim  = GetComponent<Animator>();
+        
+        _anim.SetBool("Go",true);
     }
 
     void Update()
@@ -40,6 +44,7 @@ public class PlayerController : MonoBehaviour
         if (_hitWall)
         {
             _velocity.z /= 3;
+            _anim.SetFloat("Blend",1);
         }
 
         CheckGround();
