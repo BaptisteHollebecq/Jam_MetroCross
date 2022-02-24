@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class SkateBoard : MonoBehaviour
 {
+    public GameObject particle;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent<PlayerController>(out PlayerController pc))
         {
             pc.GetSkate();
-            Destroy(gameObject);
+            particle.SetActive(true);
+            Destroy(gameObject, 1);
         }
     }
 }
