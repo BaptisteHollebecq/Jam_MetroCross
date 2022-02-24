@@ -12,9 +12,12 @@ public struct Frame
 public class Phantom : MonoBehaviour
 {
     private List<Frame> Frames;
+    public float TimeRecord;
 
     public bool Record;
     public bool Play;
+
+    public GameObject Ghost;
 
     void Start()
     {
@@ -33,15 +36,22 @@ public class Phantom : MonoBehaviour
     
     void FixedUpdate()
     {
+        if (!Game.Instance.Playing) return;
+        
         if (Record)
         {
             Frame frame = new Frame();
             frame.Position = Game.Instance.Player.transform.position;
+            Frames.Add(frame);
+            
+            TimeRecord += Time.deltaTime;
         }
 
         if (Play)
         {
-            
+            Ghost.SetActive(true);
+            Frame frame = Frames[0];
+            Frames.RemoveAt(0);
         }
         
     }

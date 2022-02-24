@@ -10,13 +10,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 _velocity;
     private bool _hasJumped;
     private bool _hitWall;
+    private bool _slowed;
 
     public float RunSpeed;
     public float MoveSpeed;
     public float JumpForce;
     public int SlowGround;
     public float TimerWall;
-    
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -27,8 +28,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        _velocity = new Vector3(0, _rb.velocity.y, RunSpeed);
+        if (!Game.Instance.Playing) return;
         
+        _velocity = new Vector3(0, _rb.velocity.y, RunSpeed);
+        if(!_slowed) _velocity.z /= 2;
+            
         // Moving X
         if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < 0.1f)
             _velocity.x = MoveSpeed * Input.GetAxis("Vertical") * -1;
@@ -44,39 +48,31 @@ public class PlayerController : MonoBehaviour
         if (_hitWall)
         {
             _velocity.z /= 3;
-            _anim.SetFloat("Blend",1);
+            
         }
-
-        CheckGround();
-
     }
     
-    public IEnumerator HitWall()
-    {
-        // Set Anim walk true
-        _hitWall = true;
-        yield return new WaitForSeconds(TimerWall);
-        _hitWall = false;
-        // Set Anim walk false
-    }
-
-    private void CheckGround()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down * 0.1f, out hit))
-        {
-            _hasJumped = false;
-            _velocity.y = 0;
-
-            if (hit.collider.gameObject.layer == SlowGround)
-            {
-                _velocity.z /= 2;
-            }
-        }
-    }
-
     private void FixedUpdate()
     {
         _rb.velocity = _velocity;
     }
+    
+    public IEnumerator HitWall()
+    {
+        _anim.SetFloat("Blend",1);
+        _hitWall = true;
+        yield return new WaitForSeconds(TimerWall);
+        _hitWall = false;
+        _anim.SetFloat("Blend",0);
+    }
+
+    public void OnFootTriggerStay(Collider ground)
+    {
+        _hasJumped = false;
+        _velocity.y = 0;
+
+        _slowed = ground.gameObject.layer == SlowGround;
+        
+    }
+    
 }

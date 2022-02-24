@@ -6,11 +6,19 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public PlayerController Player;
+    public bool Playing;
 
     public static Game Instance;
 
     private void Awake()
     {
         Instance = this;
+        Playing = true;
+    }
+
+    public void EndLevel()
+    {
+        Playing = false;
+        
     }
 }
