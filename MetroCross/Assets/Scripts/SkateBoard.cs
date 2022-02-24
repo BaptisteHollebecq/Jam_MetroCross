@@ -12,7 +12,16 @@ public class SkateBoard : MonoBehaviour
         {
             pc.GetSkate();
             particle.SetActive(true);
-            Destroy(gameObject, 1);
+            StartCoroutine(DestroySkate());
+
         }
+    }
+
+    IEnumerator DestroySkate()
+    {
+        yield return new WaitForSeconds(1);
+        particle.SetActive(false);
+        gameObject.SetActive(false);
+        
     }
 }

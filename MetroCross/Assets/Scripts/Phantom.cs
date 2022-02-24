@@ -36,7 +36,13 @@ public class Phantom : MonoBehaviour
 
     public void SaveFile(string name)
     {
-
+        PhantomData existing = LoadFile(name);
+        if (existing != null)
+        {
+            if (existing.TimeRecord < _timeRecord) return;
+        }
+        
+        
         PhantomData asset = ScriptableObject.CreateInstance<PhantomData>();
 
         asset.TimeRecord = _timeRecord;

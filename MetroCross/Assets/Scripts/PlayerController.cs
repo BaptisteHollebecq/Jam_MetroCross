@@ -74,9 +74,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator HitWall()
     {
-        Debug.Log("HIIIIIT");
-        
-        
+
         if (OnSkate)
             GetOffSkate();
         
