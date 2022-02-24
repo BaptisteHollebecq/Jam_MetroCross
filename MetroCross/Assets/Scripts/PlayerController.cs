@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public int SlowGround;
     public float TimerWall;
 
+    public bool OnSkate = false;
+    public GameObject Skate;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -28,10 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!Game.Instance.Playing) return;
-        
+        if (!Game.Instance.Playing)
+        {
+            _velocity = Vector3.zero;
+            return;
+        }
         _velocity = new Vector3(0, _rb.velocity.y, RunSpeed);
-        if(!_slowed) _velocity.z /= 2;
+
+        if(_slowed) _velocity.z /= 2;
             
         // Moving X
         if (Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < 0.1f)
@@ -40,6 +47,8 @@ public class PlayerController : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) && !_hasJumped)
         {
+            if (OnSkate)
+                GetOffSkate();
             _rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             _hasJumped = true;
         }
@@ -50,6 +59,9 @@ public class PlayerController : MonoBehaviour
             _velocity.z /= 3;
             
         }
+
+        if (OnSkate)
+            _velocity.y = 0;
     }
     
     private void FixedUpdate()
@@ -59,6 +71,8 @@ public class PlayerController : MonoBehaviour
     
     public IEnumerator HitWall()
     {
+        if (OnSkate)
+            GetOffSkate();
         _anim.SetFloat("Blend",1);
         _hitWall = true;
         yield return new WaitForSeconds(TimerWall);
@@ -66,12 +80,27 @@ public class PlayerController : MonoBehaviour
         _anim.SetFloat("Blend",0);
     }
 
+    public void GetSkate()
+    {
+        OnSkate = true;
+        _anim.SetBool("OnSkate", true);
+        Skate.SetActive(true);
+    }
+
+    private void GetOffSkate()
+    {
+        OnSkate = false;
+        _anim.SetBool("OnSkate", false);
+        Skate.SetActive(false);
+    }
+
     public void OnFootTriggerStay(Collider ground)
     {
         _hasJumped = false;
         _velocity.y = 0;
 
-        _slowed = ground.gameObject.layer == SlowGround;
+        if (!OnSkate)
+            _slowed = ground.gameObject.layer == SlowGround;
         
     }
     
