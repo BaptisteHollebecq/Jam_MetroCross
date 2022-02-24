@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33494903436343736}
   - component: {fileID: 23287684055366478}
   - component: {fileID: 64457398275666606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Greek_Floor_Slow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         }
 
         CheckGround();
+
     }
     
     public IEnumerator HitWall()
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down * 0.1f, out hit))
         {
             _hasJumped = false;
+            _velocity.y = 0;
 
             if (hit.collider.gameObject.layer == SlowGround)
             {
