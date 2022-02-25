@@ -34,6 +34,7 @@ public class Game : MonoBehaviour
             Skate.gameObject.SetActive(true);
         }
 
+        Ghost.Ghost.transform.position = StartPosition.position;
         Ghost.StartGhost();
     }
 
@@ -41,8 +42,10 @@ public class Game : MonoBehaviour
     {
         Playing = false;
         Player.gameObject.SetActive(false);
-        Player.Skate.SetActive(false);
         
+        Player.Skate.SetActive(false);
+        Ghost.Skate.SetActive(false);
+
         Ghost.SaveFile(PlayerName);
 
         UIManager.Instance.ShowResult();
