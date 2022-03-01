@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using FirebaseWebGL.Examples.Utils;
+using FirebaseWebGL.Scripts.FirebaseBridge;
+using FirebaseWebGL.Scripts.Objects;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -23,7 +26,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        ShowLeaderBoard();
+        //ShowLeaderBoard();
     }
     
     void Update()
@@ -96,47 +99,63 @@ public class UIManager : MonoBehaviour
 
     public void ShowLeaderBoard()
     {
-        string [] fileEntries = Directory.GetFiles("Assets/Ghosts/");
+        FirebaseFirestore.GetDocumentsInCollection("map1", gameObject.name, "OnShowLeaderBoard", "DisplayErrorObject");
+    }
+    
+    public void DisplayErrorObject(string error)
+    {
+        var parsedError = StringSerializationAPI.Deserialize(typeof(FirebaseError), error) as FirebaseError;
+        boards[0].text  = error;
+        Debug.LogError(error);
+    }
 
-        List<float> scores = new List<float>();
-        List<string> names = new List<string>();
+    public void OnShowLeaderBoard(string data)
+    {
+        boards[0].text = data.Split(':')[0].Replace("{","");
+    }
+
+    /*
+    string [] fileEntries = Directory.GetFiles("Assets/Ghosts/");
+
+    List<float> scores = new List<float>();
+    List<string> names = new List<string>();
 
 
-        foreach (string file in fileEntries)
+    foreach (string file in fileEntries)
+    {
+        if (file.Contains(".meta")) continue;
+        
+        PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>(file);
+
+        string name = file.Replace("Assets/Ghosts/", "").Replace(".asset", "");
+        float score = phantom.TimeRecord;
+
+        int idx = 0;
+        while (true)
         {
-            if (file.Contains(".meta")) continue;
-            
-            PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>(file);
-
-            string name = file.Replace("Assets/Ghosts/", "").Replace(".asset", "");
-            float score = phantom.TimeRecord;
-
-            int idx = 0;
-            while (true)
+            if (scores.Count <= idx)
             {
-                if (scores.Count <= idx)
-                {
-                    scores.Add(score);
-                    names.Add(name);
-                    break;
-                }
-
-                if (scores[idx] > score)
-                {
-                    scores.Insert(idx,score);
-                    names.Insert(idx,name);
-                    break;
-                }
-
-                idx++;
+                scores.Add(score);
+                names.Add(name);
+                break;
             }
-        }
 
-        for (int i = 0; i < 5; i++)
-        {
-            if (i >= scores.Count) break;
-            boards[i].text = names[i] + " : " + ParseTimer(scores[i]);
-            
+            if (scores[idx] > score)
+            {
+                scores.Insert(idx,score);
+                names.Insert(idx,name);
+                break;
+            }
+
+            idx++;
         }
     }
+
+    for (int i = 0; i < 5; i++)
+    {
+        if (i >= scores.Count) break;
+        boards[i].text = names[i] + " : " + ParseTimer(scores[i]);
+        
+    }*/
+    
 }

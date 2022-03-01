@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FirebaseWebGL.Scripts.FirebaseBridge;
+using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,19 +45,34 @@ public class Phantom : MonoBehaviour
         }
         
         
-        PhantomData asset = ScriptableObject.CreateInstance<PhantomData>();
+        PhantomData asset = new PhantomData();
 
         asset.TimeRecord = _timeRecord;
         asset.Frames = _frames;
+        
+        _frames.Clear();
 
+        string json = JsonConvert.SerializeObject(asset);
+
+        /*string json = asset.GetJSON();*/
+        Debug.Log(json);
+        
+        
+        
+        FirebaseFirestore.SetDocument("map1", name ,json, UIManager.Instance.gameObject.name,"ShowLeaderBoard", "DisplayErrorObject");
+        /*
         AssetDatabase.CreateAsset(asset, "Assets/Ghosts/"+name+".asset");
         AssetDatabase.SaveAssets();
+        */
     }
     
     public PhantomData LoadFile(string name)
     {
-        PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>("Assets/Ghosts/" + name + ".asset");
-        return phantom;
+        FirebaseFirestore.GetDocument("map1", GhostName,  UIManager.Instance.gameObject.name, "ShowLeaderBoard", "DisplayErrorObject");
+        //PhantomData data = JsonConvert.DeserializeObject<PhantomData>();
+        //PhantomData phantom = AssetDatabase.LoadAssetAtPath<PhantomData>("Assets/Ghosts/" + name + ".asset");
+        //return phantom;
+        return null;
     }
     
     void FixedUpdate()
